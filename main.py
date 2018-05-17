@@ -43,14 +43,9 @@ latlon = {'timestamp' : time, 'latitude' : lat, 'longitude' : lon}
 
 #print(latlon)
 
- # form connection string and create the connection
-#connString = ("DRIVER={};SERVER={};DATABASE={};UID={};PWD={};APP={}".format(db_driver, db_server, db_database, db_user, db_pass, db_app))
-#params = urllib.parse.quote_plus(connString)
-
  # initialize the database as an object
-db = dataset.connect('{}://{}:{}@{}/{}?driver={}'.format(db_dialect,db_user,db_pass,db_server,db_database,db_driver))
+#print('{}+pyodbc://{}:{}@{}/{}?driver={}'.format(db_dialect,db_user,db_pass,db_server,db_database,db_driver))
+db = dataset.connect('{}+pyodbc://{}:{}@{}/{}?driver={}'.format(db_dialect,db_user,db_pass,db_server,db_database,db_driver))
 
 table = db['firstTest']
 table.insert(latlon)
-
-#conn = pyodbc.connect(r'{}'.format(connString))
