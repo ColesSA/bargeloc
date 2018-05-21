@@ -9,3 +9,4 @@ class Location(db.Model):
 
     def __repr__(self):
         return '<{}:({},{})>'.format(self.timestamp, self.latitude, self.longitude)   
+
