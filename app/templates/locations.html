@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table class="table table-sm table-striped">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Timestamp</th>
+            <th scope="col">Latitude</th>
+            <th scope="col">Longitude</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for location in locations %}
+        <tr scope="row">
+            <td>{{location.timestamp}}</td>
+            <td>{{location.latitude}}</td>
+            <td>{{location.longitude}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
