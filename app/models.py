@@ -1,7 +1,6 @@
 from app import db
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SubmitField
-from wtforms.validators import DataRequired
 
 
 class Location(db.Model):
@@ -12,8 +11,7 @@ class Location(db.Model):
     longitude = db.Column(db.FLOAT(10))
 
     def __repr__(self):
-        return u'<datetime={}:(latitude={}, longitude={})>'.format(
-            self.timestamp, self.latitude, self.longitude)
+        return str({'datetime' : self.timestamp, 'latitude' : self.latitude, 'longitude': self.longitude})
 
 
 class QueryForm(FlaskForm):

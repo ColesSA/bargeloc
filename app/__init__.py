@@ -6,7 +6,7 @@ from flask_sqlalchemy import SQLAlchemy
 from config import Config
 
 # Temporary muting of requests verification error
-urllib3.disable_warnings()
+#urllib3.disable_warnings()
 
 app = Flask(__name__)
 app.config.from_object(Config)

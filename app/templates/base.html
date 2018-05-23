@@ -1,35 +1,59 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=2, shrink-to-fit=yes">        
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
 
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+        crossorigin="anonymous">
 
-        <title>Barge Location API - {{ title }}</title>
-    </head>
-    <body>
-        <div class="container mx-auto">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/index">Home</a></li>
-                    <li class="breadcrumb-item"><a href="/api/menu">Menu</a></li>
-                    <li class="breadcrumb-item"><a href="/api/store">Store Current Location</a></li>
-                </ol>
-            </nav>
-        </div>
-        <hr class="container">
-        <div class="container">
-            <h3>{{ title }}</h3>
-            {% block content %}{% endblock %}
-        </div>
-        <hr class="container">
-        <div class="container">
-            <p>This site is a prototype API for managing the location data of the CMoG Glass Barge.</p>
-        </div>
-    </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+        crossorigin="anonymous"></script> 
+        
+    {% if loc %}
+    <style type="text/css">
+        html { height: 100% }
+        body { height: 100%; margin: 0; padding: 0 }
+        #map { height: 500px }
+    </style>
+    {% endif %}
+
+    <title>Barge Location API - {{ title }}</title>
+</head>
+
+<body>
+    <div class="container mx-auto">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="/ui/index">Home</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/ui/menu">Menu</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/api/store">Store Current Location</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="/ui/map/1">Where's the Barge Now?</a>
+                </li>
+            </ol>
+        </nav>
+    </div>
+    <hr class="container">
+    <div class="container">
+        <h3>{{ title }}</h3>
+        {% block content %}{% endblock %}
+    </div>
+    <hr class="container">
+    <div class="container">
+        <p>This site is a prototype API for managing the location data of the CMoG Glass Barge.</p>
+    </div>
+</body>
+
 </html>

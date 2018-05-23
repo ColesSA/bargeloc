@@ -1,0 +1,22 @@
+{% extends "base.html" %} 
+
+{% block content %}
+<div id="map" class="jumbotron"></div>
+</script>
+<script type="text/javascript">
+    var map;
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            center: { lat: 40.6956368611, lng: -74.0014109167 },
+            zoom: 13
+        });
+        var markerPos = new google.maps.LatLng(40.6956291667 , -74.0014259444);
+        var marker = new google.maps.Marker({
+            position: markerPos,
+            map: map,
+            title: "cmog-bargerouter Updated:May 23 12:52:03 2018"
+        });
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDJsHty9TOmGII9BpYl7mxAFFLjcQlteZ4&callback=initMap"></script> 
+{% endblock %}
