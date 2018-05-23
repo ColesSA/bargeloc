@@ -20,12 +20,18 @@ def get_page():
 # NOTE: I would like to get the verification working but I need a valid CA bundle.
 
 
-def dict_factory(locations):
-    return [{
+def loc_factory(locations):
+    return {'locations':[{
         'timestamp': loc.timestamp,
         'latitude': loc.latitude,
         'longitude': loc.longitude
-    } for loc in locations]
+    } for loc in locations]}
+
+def coord_factory(locations):
+    return {'coords':[{
+        'lat': loc.latitude,
+        'lng': loc.longitude
+    } for loc in locations]}
 
 
 @app.route('/')
@@ -53,10 +59,18 @@ def ui_menu():
         return render_template('menu.html', title='View Locations', form=form)
 
 
-@app.route('/ui/locations', methods=['GET'])
+@app.route('/ui/locations', methods=['GET', 'POST'])
 def ui_all():
-    locations = db.session.query(Location).all()
-    return render_template('locations.html', title='Data', locations=locations)
+    if request.method == 'GET':
+        return render_template('locations.html', title='Data', locations=db.session.query(Location).all())
+    elif request.method == 'POST':
+        page = get_page()
+        L = Location(
+            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            latitude=page['data-latitude'],
+            longitude=page['data-longitude'])
+        db.session.add(L)
+        db.session.commit()
 
 
 @app.route('/ui/locations/<int:quantity>', methods=['GET'])
@@ -67,19 +81,28 @@ def ui_q(quantity):
         start, max_id)
     return render_template('locations.html', title='Data', locations=locations)
 
-@app.route('/ui/map/<int:quantity>',  methods=['GET', 'POST'])
+@app.route('/ui/map/<int:quantity>',  methods=['GET'])
 def ui_m(quantity):
     max_id = db.session.query(func.max(Location.id)).scalar()
     start = max_id - quantity
     locations = db.session.query(Location).order_by(Location.id).slice(
         start, max_id)
-    return render_template('test.html', title='Map', locations = locations)
+    return render_template('map.html', title='Map', locations = loc_factory(locations), coords = coord_factory(locations))
 
 
-@app.route('/api/locations', methods=['GET'])
+@app.route('/api/locations', methods=['GET', 'POST'])
 def api_all():
-    locations = db.session.query(Location).all()
-    return jsonify(dict_factory(locations))
+    if request.method == 'GET':
+        return jsonify(loc_factory(db.session.query(Location).all()))
+    elif request.method == 'POST':
+        page = get_page()
+        L = Location(
+            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            latitude=page['data-latitude'],
+            longitude=page['data-longitude'])
+        db.session.add(L)
+        db.session.commit()
+        return redirect(request.referrer)
 
 
 @app.route('/api/locations/<int:quantity>', methods=['GET'])
@@ -89,16 +112,3 @@ def api_q(quantity):
     locations = db.session.query(Location).order_by(Location.id).slice(
         start, max_id)
     return jsonify(dict_factory(locations))
-
-
-@app.route('/api/store', methods=['GET'])
-def add():
-    page = get_page()
-    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    L = Location(
-        timestamp=now,
-        latitude=page['data-latitude'],
-        longitude=page['data-longitude'])
-    db.session.add(L)
-    db.session.commit()
-    return redirect('/')

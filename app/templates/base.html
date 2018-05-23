@@ -21,6 +21,26 @@
         body { height: 100%; margin: 0; padding: 0 }
     </style>
     {% endif %}
+    <style type="text/css">
+    #secretButton{
+        background:none!important;
+        color:#007bff;
+        box-sizing: border-box;
+        cursor: pointer;
+        border:none; 
+        padding:0!important;
+        font: inherit;
+        display: flex;
+        text-align: -webkit-match-parent;
+        /*border is optional*/
+    }
+    #secretButton:hover{
+        text-decoration: underline
+    }
+    #secretContainer{
+        display: -webkit-inline-flex
+    }
+    </style>
 
     <title>Barge Location API - {{ title }}</title>
 </head>
@@ -36,7 +56,9 @@
                     <a href="/ui/menu">Menu</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="/api/store">Store Current Location</a>
+                    <form id="secretContainer" action="/api/locations" method="post">
+                        <button id="secretButton" type="submit" value="Store Barge Location">Upload Current Barge Location</button>
+                    </form>
                 </li>
                 <li class="breadcrumb-item">
                     <a href="/ui/map/1">Where's the Barge Now?</a>

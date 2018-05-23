@@ -5,8 +5,8 @@
         {{ form.hidden_tag() }}
         <p>
             {{ form.quantity.label }}:
-            {{ form.quantity(size=32, data_toggle="tooltip", data_placement="top", title="Leave Blank for All Entries") }}
+            {{ form.quantity(size=32) }}
         </p>
-        <p>{{ form.submit(class_="btn btn-primary") }}</p>
+        <p>{{ form.submit(class_="btn btn-primary", data_toggle="tooltip", data_placement="top", title="Leave Blank for All Entries") }}</p>
     </form>
 {% endblock %}
