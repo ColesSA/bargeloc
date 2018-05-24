@@ -8,7 +8,7 @@ from sqlalchemy.sql.expression import text
 
 from app import app, db
 from app.models import Location, QueryForm, UpdateForm
-from config import PWD, UID, URL, CERT
+from config import PWD, UID, URL
 
 
 def get_page():
@@ -111,4 +111,4 @@ def api_q(quantity):
     start = max_id - quantity
     locations = db.session.query(Location).order_by(Location.id).slice(
         start, max_id)
-    return jsonify(dict_factory(locations))
+    return jsonify(loc_factory(locations))

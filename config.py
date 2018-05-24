@@ -7,7 +7,6 @@ with open("./config.json", 'r') as stream:
     config = json.load(stream)
 
 URL = config['URL']
-CERT = config['CERT']
 UID = config['UID']
 PWD = config['PWD']
 SERVER = config['SERVER']
