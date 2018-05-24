@@ -111,4 +111,4 @@ def api_q(quantity):
     start = max_id - quantity
     locations = db.session.query(Location).order_by(Location.id).slice(
         start, max_id)
-    return jsonify(loc_factory(locations))
+    return jsonify(dict_factory(locations))
