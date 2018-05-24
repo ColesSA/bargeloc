@@ -7,7 +7,7 @@ from sqlalchemy import func
 from sqlalchemy.sql.expression import text
 
 from app import app, db
-from app.models import Location, QueryForm, UpdateForm
+from app.models import Location, QueryForm
 from config import PWD, UID, URL
 
 
@@ -15,9 +15,6 @@ def get_page():
     with requests.get(URL, verify=False, auth=(UID, PWD)) as req:
         return BeautifulSoup(req.content, 'html.parser').find(
             'div', {'id': 'latlong'})
-
-
-# NOTE: I would like to get the verification working but I need a valid CA bundle.
 
 
 def loc_factory(locations):
@@ -35,20 +32,8 @@ def coord_factory(locations):
 
 
 @app.route('/')
-@app.route('/ui/index', methods=['GET'])
+@app.route('/ui/index', methods=['GET', 'POST'])
 def index():
-    if "store" in request.form:
-        return redirect(url_for('add'))
-    return render_template('base.html', title='Barge Location API')
-
-
-@app.errorhandler(404)
-def page_not_found(e):
-    return render_template('404.html', title="404"), 404
-
-
-@app.route('/ui/menu', methods=['GET', 'POST'])
-def ui_menu():
     form = QueryForm()
     if request.method == 'POST':
         if form.validate() == False:
@@ -56,7 +41,12 @@ def ui_menu():
         else:
             return redirect(url_for('ui_q', quantity=request.form['quantity']))
     elif request.method == 'GET':
-        return render_template('menu.html', title='View Locations', form=form)
+        return render_template('menu.html', title='Barge Location API', form=form)
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html', title="404"), 404
 
 
 @app.route('/ui/locations', methods=['GET', 'POST'])

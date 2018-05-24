@@ -17,7 +17,3 @@ class Location(db.Model):
 class QueryForm(FlaskForm):
     quantity = IntegerField('Quantity')
     submit = SubmitField('View Locations')
-
-
-class UpdateForm(FlaskForm):
-    submit = SubmitField('Store Current Location')
