@@ -1,4 +1,3 @@
-
 from datetime import datetime
 
 import requests
@@ -16,7 +15,6 @@ def get_page():
     with requests.get(URL, verify=False, auth=(UID, PWD)) as req:
         return BeautifulSoup(req.content, 'html.parser').find(
             'div', {'id': 'latlong'})
-
 
 def loc_factory(locations):
     return {'locations':[{
@@ -55,13 +53,7 @@ def ui_all():
     if request.method == 'GET':
         return render_template('locations.html', title='Data', locations=db.session.query(Location).all())
     elif request.method == 'POST':
-        page = get_page()
-        L = Location(
-            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            latitude=page['data-latitude'],
-            longitude=page['data-longitude'])
-        db.session.add(L)
-        db.session.commit()
+        return redirect(url_for('api_now'))
 
 
 @app.route('/ui/locations/<int:quantity>', methods=['GET'])
