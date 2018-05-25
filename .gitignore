@@ -1,5 +1,8 @@
 config.json
 __pycache__
 pylintrc
+<<<<<<< HEAD
 *.cer
 .vscode/
+=======
+>>>>>>> parent of 0af14c9... Refinement
