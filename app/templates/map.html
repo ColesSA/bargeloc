@@ -4,15 +4,12 @@
 <div id="map" style="height: 500px;"></div>
 </script>
 <script type="text/javascript">
-
     var map;
-
     function newMarkerList(locations){
         for(var i = 0; i<locations.length; i++){
             newMarker(locations[i]);
         }
     }
-
     function newMarker(location){
         var tme = location.timestamp,
         lat = location.latitude,
@@ -23,7 +20,6 @@
             title: "CMoG Glass Barge - " + tme
         });
     }
-
     function newFlightPath(path){
         var flightPath = new google.maps.Polyline({
             path: path,
@@ -33,20 +29,15 @@
             strokeOpacity: 1.0,
             strokeWeight: 2
         });
-
         return flightPath;
     }
-
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
             center: { lat: 40.6956368611, lng: -74.0014109167 },
             zoom: 13
         });
-
         newMarkerList({{ locations|tojson }}.locations);
-
         newFlightPath({{ coords|tojson }}.coords);
-
         
     }
 </script>
