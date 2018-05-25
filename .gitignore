@@ -7,3 +7,5 @@ pylintrc
 =======
 >>>>>>> parent of 0af14c9... Refinement
 *.pem
+*.cer
+*.cer
