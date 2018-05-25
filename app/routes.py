@@ -80,19 +80,21 @@ def ui_m(quantity):
     return render_template('map.html', title='Map', locations = loc_factory(locations), coords = coord_factory(locations))
 
 
-@app.route('/api/locations', methods=['GET', 'POST'])
+@app.route('/api/locations', methods=['GET'])
 def api_all():
-    if request.method == 'GET':
-        return jsonify(loc_factory(db.session.query(Location).all()))
-    elif request.method == 'POST':
-        page = get_page()
-        L = Location(
-            timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            latitude=page['data-latitude'],
-            longitude=page['data-longitude'])
-        db.session.add(L)
-        db.session.commit()
-        return redirect(request.referrer)
+    return jsonify(loc_factory(db.session.query(Location).all()))
+        
+
+@app.route('/api/locations/now', methods=['GET'])
+def api_now():
+    page = get_page()
+    L = Location(
+        timestamp=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        latitude=page['data-latitude'],
+        longitude=page['data-longitude'])
+    db.session.add(L)
+    db.session.commit()
+    return redirect(request.referrer)
 
 
 @app.route('/api/locations/<int:quantity>', methods=['GET'])
